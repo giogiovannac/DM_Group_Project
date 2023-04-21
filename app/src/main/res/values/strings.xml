@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DM_Project</string>
+    <string name="Lorem_Ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent accumsan a libero in fringilla. Maecenas aliquam orci mauris, in commodo leo dignissim eget. Donec ultrices, elit sed accumsan a libero in fringilla. Maecenas aliquam orci mauris, in commodo leo</string>
+    <string name="artist_name">Artist Name</string>
+    <string name="sample_name">sample name</string>
+    <string name="activity_bar">Activity Bar</string>
+</resources>

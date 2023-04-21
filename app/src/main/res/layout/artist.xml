@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/artist_image"
+        android:layout_width="118dp"
+        android:layout_height="115dp"
+        android:layout_marginStart="146dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="147dp"
+        android:layout_marginBottom="40dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toTopOf="@+id/artist_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artist_name"
+        tools:ignore="MissingConstraints"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/artist_description"
+        android:layout_width="383dp"
+        android:layout_height="89dp"
+        android:text="@string/Lorem_Ipsum"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="273dp" />
+
+    <TextView
+        android:id="@+id/artist_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="179dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginEnd="175dp"
+        android:layout_marginBottom="13dp"
+        android:text="@string/sample_name"
+        app:layout_constraintBottom_toTopOf="@+id/artist_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
