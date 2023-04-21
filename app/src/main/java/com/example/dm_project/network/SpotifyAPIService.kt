@@ -32,15 +32,12 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface SpotifyApiService { //Fetch artist spoitfy ID given string name
-    /*@Headers(
+    @Headers(
         "X-RapidAPI-Key: 8388516373msh1227ac17fbff7f3p1069c8jsna28adae39e46",
         "X-RapidAPI-Host: spotify23.p.rapidapi.com"
     )
-    @GET("/artists/images")*/
-    //suspend fun getSpotifyImages(): List<SpotifyImage>
-
-    /*@GET("/artists/images")
-    fun getArtistID(): List<SpotifyID>*/ //TODO: Add later
+    @GET("")
+    fun getArtistID(): List<SpotifyID> //TODO: Add later
 }
 
 object SpotifyAPI {
