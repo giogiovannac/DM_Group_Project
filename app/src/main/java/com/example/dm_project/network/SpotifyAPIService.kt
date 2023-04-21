@@ -43,6 +43,6 @@ interface SpotifyApiService { //Fetch artist spoitfy ID given string name
     fun getArtistID(): List<SpotifyID>*/ //TODO: Add later
 }
 
-object SpotifyApi {
+object SpotifyAPI {
     val retrofitService: SpotifyApiService by lazy { retrofit.create(SpotifyApiService::class.java) }
 }
