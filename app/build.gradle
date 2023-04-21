@@ -80,4 +80,8 @@ dependencies {
 
     // Coil
     implementation "io.coil-kt:coil:2.2.2"
+
+    // https://mvnrepository.com/artifact/com.beust/klaxon
+    implementation "com.beust:klaxon:5.6"
+
 }
