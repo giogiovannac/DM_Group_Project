@@ -36,9 +36,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ArtistNameTextView("Taylor Swift")
-                    ArtistDescriptionTextView("Lorem Ipsum")
-                    ArtistImage(imageResId = R.drawable.ic_launcher_background)
+                    val artistName = ArtistNameTextView("Taylor Swift")
+                    val artistDesc = ArtistDescriptionTextView("Lorem Ipsum")
+                    val artistImage = ArtistImage(imageResId = R.drawable.ic_launcher_background)
 
 //                    Column(Modifier.padding(16.dp)) {
 //                        Artist(name = "Artist Name")
