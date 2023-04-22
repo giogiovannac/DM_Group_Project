@@ -1,7 +1,11 @@
 package com.example.dm_project
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -26,59 +30,56 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
-    @SuppressLint("SetTextI18n")
+//    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            DM_ProjectTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val artistName = ArtistNameTextView("Taylor Swift")
-                    val artistDesc = ArtistDescriptionTextView("Lorem Ipsum")
-                    val artistImage = ArtistImage(imageResId = R.drawable.ic_launcher_background)
+        setContentView(R.layout.main_activity);
 
-//                    Column(Modifier.padding(16.dp)) {
-//                        Artist(name = "Artist Name")
-//                        ArtistImage(image = R.drawable.artist_image)
-//                        Artist(description = "Artist Description")
-//                        ArtistAlbums(albums = listOf("Album 1", "Album 2", "Album 3"))
-//                    }
-                }
-            }
+        val myButton = findViewById<Button>(R.id.artistbttn)
+        myButton.setOnClickListener {
+            val intent = Intent(this@MainActivity, Artist::class.java)
+            startActivity(intent)
+        }
+    }
+
+
+    fun goToArtistActivity() {
+        if (applicationContext != null) {
+            val intent = Intent(this@MainActivity, Artist::class.java)
+            startActivity(intent)
+        } else {
+            Log.e("MainActivity", "Context is null");
         }
     }
 }
 
-@Composable
-fun ArtistNameTextView(artistName: String, modifier: Modifier = Modifier) {
-    Text(
-        text = artistName,
-        modifier = modifier
-    )
-}
-
-@Composable
-fun ArtistDescriptionTextView(artistDescription: String, modifier: Modifier = Modifier) {
-    Text(
-        text = artistDescription,
-        modifier = modifier
-    )
-}
-
-@Composable
-fun ArtistImage(imageResId: Int) {
-    val painter: Painter = painterResource(id = imageResId)
-    Image(painter = painter, contentDescription = null)
-}
-
-@Composable
-fun ArtistAlbums(albums: List<String>) {
-    LazyColumn {
-        items(albums) { album ->
-            Text(text = album, modifier = Modifier.padding(16.dp))
-        }
-    }
-}
+//@Composable
+//fun ArtistNameTextView(artistName: String, modifier: Modifier = Modifier) {
+//    Text(
+//        text = artistName,
+//        modifier = modifier
+//    )
+//}
+//
+//@Composable
+//fun ArtistDescriptionTextView(artistDescription: String, modifier: Modifier = Modifier) {
+//    Text(
+//        text = artistDescription,
+//        modifier = modifier
+//    )
+//}
+//
+//@Composable
+//fun ArtistImage(imageResId: Int) {
+//    val painter: Painter = painterResource(id = imageResId)
+//    Image(painter = painter, contentDescription = null)
+//}
+//
+//@Composable
+//fun ArtistAlbums(albums: List<String>) {
+//    LazyColumn {
+//        items(albums) { album ->
+//            Text(text = album, modifier = Modifier.padding(16.dp))
+//        }
+//    }
+//}
