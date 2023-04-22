@@ -6,4 +6,4 @@ package com.example.dm_project.network
  * created by davidromero
  * on 2023-04-21
  **/
-data class ArtistOverview()
+data class ArtistOverview(val artist: String)
