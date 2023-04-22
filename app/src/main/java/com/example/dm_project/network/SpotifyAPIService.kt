@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Query
 
 /**
  * Student ID: 991555778
@@ -16,12 +17,16 @@ import retrofit2.http.Headers
  **/
 
 interface SpotifyAPIService{
+
     @Headers(
         "X-RapidAPI-Key: 8388516373msh1227ac17fbff7f3p1069c8jsna28adae39e46",
         "X-RapidAPI-Host: spotify23.p.rapidapi.com"
     )
-    @GET("artist_overview")
-    fun getArtistOverview(): Call<List<Artist>>
+    @GET("/artists")
+    fun getArtistOverview(
+        @Query("ids") ids: String): Call<List<Artist>>
+
+
 }
 
 /*

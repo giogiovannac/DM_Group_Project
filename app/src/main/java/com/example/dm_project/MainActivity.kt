@@ -37,7 +37,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-private val BASE_URL = "https://spotify23.p.rapidapi.com/artists/?ids=2w9zwq3AktTeYYMuhMjju8"
+private val BASE_URL = "https://spotify23.p.rapidapi.com"
+
 
 class MainActivity : AppCompatActivity() {
     //@SuppressLint("SetTextI18n")
@@ -67,17 +68,20 @@ class MainActivity : AppCompatActivity() {
         }*/
     }
     private fun getArtistOverview(){
-        val retrofitBuilder = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(
-            BASE_URL).build().create(SpotifyAPIService::class.java)
+        val retrofitBuilder = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .build()
+            .create(SpotifyAPIService::class.java)
 
-        val retrofitData = retrofitBuilder.getArtistOverview()
+        val retrofitData = retrofitBuilder.getArtistOverview("2w9zwq3AktTeYYMuhMjju8")
 
         retrofitData.enqueue(object : Callback<List<Artist>?> {
             override fun onResponse(call: Call<List<Artist>?>, response: Response<List<Artist>?>) {
                 val responseBody = response.body()!!
                 val myStringBuilder = StringBuilder()
                 for (myData in responseBody){
-                    myStringBuilder.append(myData.id)
+                    myStringBuilder.append(myData.name)
                     myStringBuilder.append("\n")
                 }
                 txtId.text = myStringBuilder
