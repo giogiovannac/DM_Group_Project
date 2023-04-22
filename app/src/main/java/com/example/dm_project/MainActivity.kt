@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.dm_project.network.Artist
+import com.example.dm_project.network.ArtistX
 import com.example.dm_project.network.SpotifyAPIService
 import kotlinx.android.synthetic.main.main_activity.txtId
 import okhttp3.ResponseBody
@@ -37,7 +38,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-private val BASE_URL = "https://spotify23.p.rapidapi.com"
+private val BASE_URL = "https://spotify23.p.rapidapi.com/"
 
 
 class MainActivity : AppCompatActivity() {
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        getArtistOverview()
+        getArtist()
         /*setContent {
             DM_ProjectTheme {
                 // A surface container using the 'background' color from the theme
@@ -67,27 +68,28 @@ class MainActivity : AppCompatActivity() {
             }
         }*/
     }
-    private fun getArtistOverview(){
+    private fun getArtist(){
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
             .build()
             .create(SpotifyAPIService::class.java)
 
-        val retrofitData = retrofitBuilder.getArtistOverview("2w9zwq3AktTeYYMuhMjju8")
+        val retrofitData = retrofitBuilder.getArtist("2w9zwq3AktTeYYMuhMjju8")
 
-        retrofitData.enqueue(object : Callback<List<Artist>?> {
-            override fun onResponse(call: Call<List<Artist>?>, response: Response<List<Artist>?>) {
+        retrofitData.enqueue(object : Callback<List<ArtistX>?> {
+            override fun onResponse(call: Call<List<ArtistX>?>, response: Response<List<ArtistX>?>) {
                 val responseBody = response.body()!!
+
                 val myStringBuilder = StringBuilder()
-                for (myData in responseBody){
-                    myStringBuilder.append(myData.name)
+                for (ArtistX in responseBody){
+                    myStringBuilder.append(ArtistX.id)
                     myStringBuilder.append("\n")
                 }
                 txtId.text = myStringBuilder
             }
 
-            override fun onFailure(call: Call<List<Artist>?>, t: Throwable) {
+            override fun onFailure(call: Call<List<ArtistX>?>, t: Throwable) {
                 Log.d("MainActivity","OnFailure:" +t.message)
             }
         })
