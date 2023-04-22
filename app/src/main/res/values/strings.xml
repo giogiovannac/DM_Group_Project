@@ -4,4 +4,7 @@
     <string name="artist_name">Artist Name</string>
     <string name="sample_name">sample name</string>
     <string name="activity_bar">Activity Bar</string>
+    <string name="artist">Artist</string>
+    <string name="sample_artist_name">Sample Artist Name</string>
+    <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_pellentesque_efficitur_vel_augue_sit_amet_consectetur">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque efficitur vel augue sit amet consectetur.</string>
 </resources>
