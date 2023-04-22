@@ -2,11 +2,13 @@ package com.example.dm_project
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -24,12 +26,26 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.dm_project.network.Artist
+import com.example.dm_project.network.SpotifyAPIService
+import kotlinx.android.synthetic.main.main_activity.txtId
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
-class MainActivity : ComponentActivity() {
-    @SuppressLint("SetTextI18n")
+private val BASE_URL = "https://spotify23.p.rapidapi.com/artists/?ids=2w9zwq3AktTeYYMuhMjju8"
+
+class MainActivity : AppCompatActivity() {
+    //@SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
+        setContentView(R.layout.main_activity)
+        getArtistOverview()
+        /*setContent {
             DM_ProjectTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -48,10 +64,36 @@ class MainActivity : ComponentActivity() {
 //                    }
                 }
             }
-        }
+        }*/
     }
+    private fun getArtistOverview(){
+        val retrofitBuilder = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(
+            BASE_URL).build().create(SpotifyAPIService::class.java)
+
+        val retrofitData = retrofitBuilder.getArtistOverview()
+
+        retrofitData.enqueue(object : Callback<List<Artist>?> {
+            override fun onResponse(call: Call<List<Artist>?>, response: Response<List<Artist>?>) {
+                val responseBody = response.body()!!
+                val myStringBuilder = StringBuilder()
+                for (myData in responseBody){
+                    myStringBuilder.append(myData.id)
+                    myStringBuilder.append("\n")
+                }
+                txtId.text = myStringBuilder
+            }
+
+            override fun onFailure(call: Call<List<Artist>?>, t: Throwable) {
+                Log.d("MainActivity","OnFailure:" +t.message)
+            }
+        })
+
+
+    }
+
 }
 
+/*
 @Composable
 fun ArtistNameTextView(artistName: String, modifier: Modifier = Modifier) {
     Text(
@@ -82,3 +124,4 @@ fun ArtistAlbums(albums: List<String>) {
         }
     }
 }
+*/

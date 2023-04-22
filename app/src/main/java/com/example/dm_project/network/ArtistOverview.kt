@@ -15,18 +15,20 @@ import com.squareup.moshi.Json
 
 
 
+
+
 private val klaxon = Klaxon()
 
-
-data class Welcome4 (
+data class Welcome5 (
     val artists: List<Artist>
 ) {
     public fun toJson() = klaxon.toJsonString(this)
 
     companion object {
-        public fun fromJson(json: String) = klaxon.parse<Welcome4>(json)
+        public fun fromJson(json: String) = klaxon.parse<Welcome5>(json)
     }
 }
+
 data class Artist (
     @Json(name = "external_urls")
     val externalUrls: ExternalUrls,
@@ -40,6 +42,7 @@ data class Artist (
     val type: String,
     val uri: String
 )
+
 data class ExternalUrls (
     val spotify: String
 )
