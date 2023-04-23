@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import com.example.dm_project.network.Artist
 import com.example.dm_project.network.SpotifyAPIService
 import kotlinx.android.synthetic.main.main_activity.txtId
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,12 +43,12 @@ import retrofit2.create
 
 private val BASE_URL = "https://spotify23.p.rapidapi.com"
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        getArtistOverview()
+        getArtist()
 
         val myButton = findViewById<Button>(R.id.artistbttn)
         myButton.setOnClickListener {
@@ -54,40 +56,39 @@ class MainActivity : ComponentActivity() {
             startActivity(intent)
         }
     }
-    private fun getArtistOverview(){
+
+    private fun getArtist(){
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
             .build()
             .create(SpotifyAPIService::class.java)
 
-        val retrofitData = retrofitBuilder.getArtistOverview("2w9zwq3AktTeYYMuhMjju8")
+        val retrofitData = retrofitBuilder.getArtist("2w9zwq3AktTeYYMuhMjju8")
 
-//        retrofitData.enqueue(object : Callback<List<ArtistX>?> {
-//
-//            override fun onFailure(call: Call<List<ArtistX>?>, t: Throwable) {
-//                Log.d("Main activity Failure","On Failure")
-//            }
-//
-//            override fun onResponse(
-//                call: Call<List<ArtistX>?>,
-//                response: Response<List<ArtistX>?>
-//            ) {
-//                val responseBody = response.body()!!
-//                val myStringBuilder = StringBuilder()
-//                for (artist in responseBody){
-//                    myStringBuilder.append(artist.name)
-//                    myStringBuilder.append("\n")
-//                }
-//                txtId.text = myStringBuilder
-//            }
-//        })
+
+        retrofitData.enqueue(object : Callback<List<ArtistX>?> {
+            override fun onResponse(call: Call<List<ArtistX>?>, response: Response<List<ArtistX>?>) {
+                val responseBody = response.body()!!
+
+                val myStringBuilder = StringBuilder()
+                for (artist in responseBody){
+                    myStringBuilder.append(artist.id)
+                    myStringBuilder.append("\n")
+                }
+                txtId.text = myStringBuilder
+            }
+
+            override fun onFailure(call: Call<List<ArtistX>?>, t: Throwable) {
+                Log.d("MainActivity","OnFailure:" +t.message)
+            }
+        })
 
 
     }
     fun goToArtistActivity() {
         if (applicationContext != null) {
-            val intent = Intent(this@MainActivity, com.example.dm_project.Artist::class.java)
+            val intent = Intent(this@MainActivity, com.example.dm_project.ArtistInformation::class.java)
             startActivity(intent)
         } else {
             Log.e("MainActivity", "Context is null");
