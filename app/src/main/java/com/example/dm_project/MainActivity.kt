@@ -30,6 +30,8 @@ import com.example.dm_project.network.Artist
 import com.example.dm_project.network.ArtistX
 import com.example.dm_project.network.SpotifyAPIService
 import kotlinx.android.synthetic.main.main_activity.txtId
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,14 +40,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-private val BASE_URL = "https://spotify23.p.rapidapi.com/"
 
+private const val BASE_URL = "https://spotify23.p.rapidapi.com/"
 
 class MainActivity : AppCompatActivity() {
+
     //@SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
         getArtist()
         /*setContent {
             DM_ProjectTheme {
@@ -68,6 +72,7 @@ class MainActivity : AppCompatActivity() {
             }
         }*/
     }
+
     private fun getArtist(){
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -77,13 +82,14 @@ class MainActivity : AppCompatActivity() {
 
         val retrofitData = retrofitBuilder.getArtist("2w9zwq3AktTeYYMuhMjju8")
 
+
         retrofitData.enqueue(object : Callback<List<ArtistX>?> {
             override fun onResponse(call: Call<List<ArtistX>?>, response: Response<List<ArtistX>?>) {
                 val responseBody = response.body()!!
 
                 val myStringBuilder = StringBuilder()
-                for (ArtistX in responseBody){
-                    myStringBuilder.append(ArtistX.id)
+                for (artist in responseBody){
+                    myStringBuilder.append(artist.id)
                     myStringBuilder.append("\n")
                 }
                 txtId.text = myStringBuilder
@@ -94,8 +100,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
     }
+
 
 }
 
